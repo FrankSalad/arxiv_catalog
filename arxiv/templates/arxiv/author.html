@@ -1,0 +1,17 @@
+<h1>Author Information</h1>
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<dl>
+    <dt>Name</dt><dd>{{ author.name }}</dd>
+    <dt>Articles</dt>
+    <dd>
+        <ul>
+        {% for article in author.articles.all %}
+            <li><a href="{% url 'arxiv:article' article.id %}">{{ article.title }}</a></li>
+        {% endfor %}
+        </ul>
+    </dd>
+</dl>
