@@ -7,9 +7,7 @@ from .models import Article, Author
 
 
 def _get_cutoff(days=180):
-    return pytz.utc.localize(
-        datetime.datetime.utcnow() - datetime.timedelta(days=days)
-    )
+    return pytz.utc.localize(datetime.datetime.utcnow() - datetime.timedelta(days=days))
 
 
 # Create your views here.

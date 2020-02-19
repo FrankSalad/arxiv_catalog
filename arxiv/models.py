@@ -1,6 +1,4 @@
-import datetime
 from django.db import models
-from django.utils import timezone
 
 
 # Create your models here.
@@ -9,8 +7,8 @@ class Article(models.Model):
     title = models.TextField()
     subject = models.CharField(max_length=30)
     summary = models.TextField()
-    published = models.DateTimeField('date published')
-    updated = models.DateTimeField('date updated')
+    published = models.DateTimeField("date published")
+    updated = models.DateTimeField("date updated")
 
     def __str__(self):
         return self.title[0:30]
