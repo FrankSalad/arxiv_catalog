@@ -1,3 +1,9 @@
+{% extends 'arxiv/base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+
 <h1>Article Information</h1>
 
 {% if error_message %}
@@ -19,3 +25,4 @@
     <dt>Updated</dt><dd>{{ article.updated }}</dd>
     <dt>Summary</dt><dd><pre>{{ article.summary }}</pre></dd>
 </dl>
+{% endblock %}

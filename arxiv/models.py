@@ -12,8 +12,6 @@ class Article(models.Model):
     published = models.DateTimeField('date published')
     updated = models.DateTimeField('date updated')
 
-    # NOTE: To query authors for an article, do: article.author_set
-
     def is_recent(self, days=180):
         now = datetime.datetime.utcnow()
         return now - datetime.timedelta(days=days) <= self.published <= now

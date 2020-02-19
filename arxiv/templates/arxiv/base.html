@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <style>
+        div#navbar
+        {
+            padding: 10px;
+            border: 1px dotted black;
+        }
+        div#navbar ul
+        {
+            list-style: none;
+        }
+        div#navbar ul li
+        {
+        }
+        ul.article-list
+        {
+            list-style: none;
+        }
+        li.article-item
+        {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 0 0 10px 0;
+        }
+        </style>
+    </head>
+
+    <body>
+        <div id="navbar">
+            Navigation
+            <ul>
+                <li><a href="{% url 'arxiv:index' %}">Article Index</a></li>
+                <li><a href="{% url 'arxiv:article_count' %}">Author Counts</a></li>
+            </ul>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </body>
+
+</html>

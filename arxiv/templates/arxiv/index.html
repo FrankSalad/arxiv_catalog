@@ -1,13 +1,16 @@
+{% extends 'arxiv/base.html' %}
+
+{% block title %}Article Index{% endblock %}
+
+{% block content %}
+<h1>Article Index</h1>
 {% if article_list %}
-    <ul>
+    <ul class='article-list'>
     {% for article in article_list %}
-        <li>
-        Updated: {{ article.updated }}<br>
-        Published: {{ article.published }}<br>
-        <a href="{% url 'arxiv:article' article.id %}">{{ article.title }}</a>
-        </li>
+        {% include 'arxiv/snippets/article_item.html' with article=article %}
     {% endfor %}
     </ul>
 {% else %}
     <p>No articles are available.</p>
 {% endif %}
+{% endblock %}

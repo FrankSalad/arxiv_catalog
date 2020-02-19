@@ -1,3 +1,8 @@
+{% extends 'arxiv/base.html' %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block content %}
 <h1>Author Information</h1>
 
 {% if error_message %}
@@ -8,10 +13,11 @@
     <dt>Name</dt><dd>{{ author.name }}</dd>
     <dt>Articles</dt>
     <dd>
-        <ul>
+        <ul class='article-list'>
         {% for article in author.articles.all %}
-            <li><a href="{% url 'arxiv:article' article.id %}">{{ article.title }}</a></li>
+            {% include 'arxiv/snippets/article_item.html' with article=article %}
         {% endfor %}
         </ul>
     </dd>
 </dl>
+{% endblock %}
