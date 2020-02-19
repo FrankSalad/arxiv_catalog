@@ -1,8 +1,16 @@
 import datetime
+import pytz
 from django.shortcuts import render
 from django.views import generic
 
 from .models import Article, Author
+
+
+def _get_cutoff(days=180):
+    return pytz.utc.localize(
+        datetime.datetime.utcnow() - datetime.timedelta(days=days)
+    )
+
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -11,7 +19,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         # Get all articles published in last 6 months
-        cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=180)
+        cutoff = _get_cutoff()
         article_list = Article.objects.filter(published__gt=cutoff)
         article_list = sorted(article_list, key=lambda x: x.published, reverse=True)
         print(f"Found {len(article_list)} articles")
@@ -20,7 +28,7 @@ class IndexView(generic.ListView):
 
 def article_count(request):
     # Get all articles published in last 6 months, then group by author
-    cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=180)
+    cutoff = _get_cutoff()
     authors = Author.objects.all()
 
     counts = {}
