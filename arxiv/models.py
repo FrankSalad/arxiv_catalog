@@ -12,10 +12,6 @@ class Article(models.Model):
     published = models.DateTimeField('date published')
     updated = models.DateTimeField('date updated')
 
-    def is_recent(self, days=180):
-        now = datetime.datetime.utcnow()
-        return now - datetime.timedelta(days=days) <= self.published <= now
-
     def __str__(self):
         return self.title[0:30]
 

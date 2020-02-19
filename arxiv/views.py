@@ -10,24 +10,24 @@ class IndexView(generic.ListView):
     context_object_name = "article_list"
 
     def get_queryset(self):
-        # TODO: Get all articles written in last 6 months
+        # Get all articles published in last 6 months
         cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=180)
-        article_list = Article.objects.order_by("-updated")
+        article_list = Article.objects.filter(published__gt=cutoff)
+        article_list = sorted(article_list, key=lambda x: x.published, reverse=True)
         print(f"Found {len(article_list)} articles")
         return article_list
 
 
 def article_count(request):
-    template_name = "arxiv/article_count.html"
-    context_object_name = "article_list"
-
-    # TODO: Get all articles published in last 6 months, then group by author
+    # Get all articles published in last 6 months, then group by author
     cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=180)
     authors = Author.objects.all()
 
     counts = {}
     for author in authors:
-        counts[author] = len(author.articles.filter(updated__gt=cutoff))
+        article_count = len(author.articles.filter(published__gt=cutoff))
+        if article_count > 0:
+            counts[author] = article_count
 
     # Sort by count
     counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
